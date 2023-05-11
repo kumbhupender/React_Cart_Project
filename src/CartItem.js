@@ -1,7 +1,19 @@
 import React from 'react';
 
 class CartItem extends React.Component {
+    //adding state to our CartItem
+    constructor () {
+        super();
+        this.state = {
+            price : 999,
+            title : 'Mobile Phone',
+            qty : 1,
+            img : ''
+        }
+    }
     render () {
+        //destructuring
+        const {price , title , qty} = this.state;
         return (
 
             <div className='cart-item'>
@@ -9,16 +21,24 @@ class CartItem extends React.Component {
                 <div className='left-block'>
                     <img style={styles.image}/>
                 </div>
-                
-                <div className='right-block'>
-                    <div style={ {fontSize : 25} }>Phone</div>
-                    <div style={ {color : '#ccc'} }>999</div>
-                    <div style={ {color : '#ccc'} }>1</div>
-                </div>
 
-                <div className='cart-item-actions'>
+                <div className='right-block'>
+                    <div style={ {fontSize : 25} }>{title}</div>
+                    <div style={ {color : '#ccc'} }>Rs: {price}</div>
+                    <div style={ {color : '#ccc'} }>Qty: {qty}</div>
+
+
+                    <div className='cart-item-actions'>
                     {/* Buttons */}
+                    <img alt="increase" className='action-icons' src='https://cdn-icons-png.flaticon.com/128/992/992651.png' />
+
+                    <img alt="decrease" className='action-icons' src='https://cdn-icons-png.flaticon.com/128/992/992683.png' />
+
+                    <img alt="delete" className='action-icons' src='https://cdn-icons-png.flaticon.com/128/1214/1214428.png' />
                 </div>
+            </div>
+
+                
             </div>
 
         );
