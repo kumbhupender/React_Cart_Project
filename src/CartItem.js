@@ -15,7 +15,30 @@ class CartItem extends React.Component {
 
     increaseQuantity = () => {
         console.log("this",this.state);
+
+        /*setState form-1
+        this.setState({
+            qty : this.state.qty + 1  //Here react take it and merge it into the state i.e. shallow merging then re-render the componenet
+        });
+        */
+
+        //setState form 2 , passing function in the setState but its use when we required prevQty
+        this.setState((prevState) => {
+            return {
+                qty : prevState.qty + 1
+            }
+        });
     }
+
+    // decreaseQuantity = () => {
+    //     this.setState((prevState) => {
+    //         qty : prevState.qty - 1
+    //     });
+    // }
+
+
+
+
     render () {
         //destructuring
         const {price , title , qty} = this.state;
@@ -37,7 +60,7 @@ class CartItem extends React.Component {
                     {/* Buttons */}
                     <img alt="increase" className='action-icons' src='https://cdn-icons-png.flaticon.com/128/992/992651.png'  onClick={this.increaseQuantity} />
 
-                    <img alt="decrease" className='action-icons' src='https://cdn-icons-png.flaticon.com/128/992/992683.png' />
+                    <img alt="decrease" className='action-icons' src='https://cdn-icons-png.flaticon.com/128/992/992683.png' onClick={this.decreaseQuantity} />
 
                     <img alt="delete" className='action-icons' src='https://cdn-icons-png.flaticon.com/128/1214/1214428.png' />
                 </div>
