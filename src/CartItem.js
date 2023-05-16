@@ -14,7 +14,7 @@ class CartItem extends React.Component {
     }
 
     increaseQuantity = () => {
-        console.log("this",this.state);
+        // console.log("this",this.state);
 
         /*setState form-1
         this.setState({
@@ -22,19 +22,31 @@ class CartItem extends React.Component {
         });
         */
 
-        //setState form 2 , passing function in the setState but its use when we required prevQty
+        //setState form 2 , passing function in the setState but its use when we required prevState
         this.setState((prevState) => {
             return {
                 qty : prevState.qty + 1
             }
+        },()=>{
+            console.log(this.state.qty)
         });
     }
 
-    // decreaseQuantity = () => {
-    //     this.setState((prevState) => {
-    //         qty : prevState.qty - 1
-    //     });
-    // }
+    decreaseQuantity = () => {
+        //check
+        const { qty } = this.state;
+
+        if(qty === 0) {
+            return
+        }
+        this.setState((prevState) => {
+            return {
+            qty : prevState.qty - 1
+            }
+        }, () => {
+            
+        });
+    }
 
 
 
