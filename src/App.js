@@ -14,21 +14,21 @@ constructor () {
               price : 999,
               title : 'Mobile Phone',
               qty : 1,
-              img : '',
+              img : 'https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg?auto=compress&cs=tinysrgb&w=600',
               id : 1
           },
           {
               price : 9999,
               title : 'Laptop',
               qty : 10,
-              img : '',
+              img : 'https://images.pexels.com/photos/6446685/pexels-photo-6446685.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
               id : 2
           },
           {
               price : 99,
               title : 'Watch',
               qty : 1,
-              img : '',
+              img : 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
               id : 3
           }
       ]
@@ -84,6 +84,17 @@ getCartCount = (product) => {
   return count;
 }
 
+//Total price
+getTotal = () => {
+  const { products } = this.state;
+
+  let totalCount = 0;
+
+  products.map((product) => {
+    totalCount = totalCount + product.qty * product.price;
+  })
+  return totalCount;
+}
 
 
   render(){
@@ -93,15 +104,30 @@ getCartCount = (product) => {
       <Navbar 
         count = {this.getCartCount()}
       />
-      <h1>Cart</h1>
+
       <Cart 
         products={products}
         onIncreaseQuantity={this.IncreaseQuantity}
         onDecreaseQuantity={this.DecreaseQuantity}
         onDeleteQuantity={this.DeleteQuantity}
       />
+
+      <div style={styles.totalPrice}>TOTAL : Rs.{this.getTotal()}</div>
     </div>
   );
+  }
+}
+
+const styles = {
+  totalPrice : {
+    fontSize : 20,
+    padding : 10,
+    border :'2px solid black',
+    borderRadius : 500,
+    width : 200,
+    textAlign : 'center',
+    fontWeight : 'bolder',
+    marginLeft : 10
   }
 }
 
