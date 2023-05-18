@@ -60,6 +60,15 @@ DecreaseQuantity = (product) => {
         products
     });
 }
+
+DeleteQuantity = (id) => {
+    const { products } = this.state;
+    const items = products.filter((item) => item.id !== id); //remove the id which we click from an array
+
+    this.setState({
+        products : items
+    })
+}
     render (){
         const { products } = this.state;
         return(
@@ -72,6 +81,7 @@ DecreaseQuantity = (product) => {
                     key={ product.id }
                     onIncreaseQuantity={this.IncreaseQuantity}
                     onDecreaseQuantity={this.DecreaseQuantity}
+                    onDeleteQuantity={this.DeleteQuantity}
                     />
                 })
                 }
