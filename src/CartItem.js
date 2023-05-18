@@ -1,12 +1,10 @@
 import React from 'react';
 
-class CartItem extends React.Component {
+const CartItem = (props) => {
 
-    render () {
-        console.log('this.props',this.props);
         //destructuring
-        const {price , title , qty} = this.props.product;
-        const {product, onIncreaseQuantity , onDecreaseQuantity ,onDeleteQuantity} = this.props;
+        const {price , title , qty} = props.product;
+        const {product, onIncreaseQuantity , onDecreaseQuantity ,onDeleteQuantity} = props;
         return (
 
             <div className='cart-item'>
@@ -35,7 +33,7 @@ class CartItem extends React.Component {
             </div>
 
         );
-    }
+    
 }
 
 
