@@ -44,6 +44,22 @@ IncreaseQuantity = (product) => {
         products
     });
 }
+
+DecreaseQuantity = (product) => {
+    console.log("Hey increae the qty",product);
+    const { products } = this.state;
+    const  index  = products.indexOf(product);
+
+    //check
+    if(product.qty === 0){
+        return;
+    }
+    products[index].qty -= 1;
+
+    this.setState({
+        products
+    });
+}
     render (){
         const { products } = this.state;
         return(
@@ -55,6 +71,7 @@ IncreaseQuantity = (product) => {
                     product={ product }
                     key={ product.id }
                     onIncreaseQuantity={this.IncreaseQuantity}
+                    onDecreaseQuantity={this.DecreaseQuantity}
                     />
                 })
                 }
