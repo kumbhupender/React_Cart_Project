@@ -2,38 +2,43 @@ import CartItem  from "./CartItem";
 import Cart from "./Cart";
 import Navbar from './Navbar';
 import React from "react";
-
+import firebase from 'firebase';
 class App extends React.Component {
 
 //adding state to our CartItem
 constructor () {
   super();
   this.state = {
-      products : [
-          {
-              price : 999,
-              title : 'Mobile Phone',
-              qty : 1,
-              img : 'https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg?auto=compress&cs=tinysrgb&w=600',
-              id : 1
-          },
-          {
-              price : 9999,
-              title : 'Laptop',
-              qty : 10,
-              img : 'https://images.pexels.com/photos/6446685/pexels-photo-6446685.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-              id : 2
-          },
-          {
-              price : 99,
-              title : 'Watch',
-              qty : 1,
-              img : 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-              id : 3
-          }
-      ]
+      products : [],
+      loading : true
   }
-  
+}
+
+componentDidMount() {
+  firebase
+  .firestore()
+  .collection('Products')
+  .get()
+  .then((snapshot) => {
+    console.log(snapshot);
+
+    snapshot.docs.map((doc) => {
+      console.log(doc.data());
+
+
+      const products = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        data['id'] = doc.id;
+
+        return data;
+      })
+
+      this.setState({
+        products,
+        loading : false
+      })
+    })
+  })
 }
 
 IncreaseQuantity = (product) => {
@@ -98,7 +103,7 @@ getTotal = () => {
 
 
   render(){
-    const { products } = this.state;
+    const { products , loading} = this.state;
   return (
     <div className="App">
       <Navbar 
@@ -111,7 +116,7 @@ getTotal = () => {
         onDecreaseQuantity={this.DecreaseQuantity}
         onDeleteQuantity={this.DeleteQuantity}
       />
-
+    {loading && <h1>Loading Products...</h1>}
       <div style={styles.totalPrice}>TOTAL : Rs.{this.getTotal()}</div>
     </div>
   );
